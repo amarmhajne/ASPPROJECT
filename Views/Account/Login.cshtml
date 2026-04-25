@@ -1,0 +1,49 @@
+@{
+    ViewData["Title"] = "התחברות";
+    Layout = "_Layout";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <div class="card shadow">
+            <div class="card-body p-5">
+                <div class="text-center mb-4">
+                    <i class="bi bi-shop" style="font-size: 3rem; color: #1e3c72;"></i>
+                    <h3 class="mt-2">מערכת ניהול מכירות</h3>
+                    <p class="text-muted">הזן את פרטי ההתחברות שלך</p>
+                </div>
+
+                @if (ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger">
+                        <i class="bi bi-exclamation-triangle"></i> @ViewBag.Error
+                    </div>
+                }
+
+                <form method="post" asp-action="Login" asp-controller="Account">
+                    <div class="mb-3">
+                        <label class="form-label">שם משתמש</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                            <input type="text" name="username" class="form-control" placeholder="הזן שם משתמש" required autofocus />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">סיסמה</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                            <input type="password" name="password" class="form-control" placeholder="הזן סיסמה" required />
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 py-2">
+                        <i class="bi bi-box-arrow-in-right"></i> התחבר
+                    </button>
+                </form>
+
+                <div class="text-center mt-3">
+                    <small class="text-muted">משתמש ברירת מחדל: admin / Admin123</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

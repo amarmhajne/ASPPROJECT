@@ -1,0 +1,72 @@
+@model IEnumerable<Sale>
+@{
+    ViewData["Title"] = "מכירות";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3><i class="bi bi-cash-coin"></i> ניהול מכירות</h3>
+    <a href="/Sales/Create" class="btn btn-primary"><i class="bi bi-plus-lg"></i> הוסף מכירה חדשה</a>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-2">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="חפש מכירה..." value="@ViewBag.Search" />
+                    <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i></button>
+                </div>
+            </div>
+            @if (ViewBag.Search != null)
+            {
+                <div class="col-auto"><a href="/Sales" class="btn btn-outline-secondary">נקה חיפוש</a></div>
+            }
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>הזמנה</th>
+                    <th>עובד</th>
+                    <th>תאריך מכירה</th>
+                    <th>סכום ששולם</th>
+                    <th>אמצעי תשלום</th>
+                    <th>פעולות</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var paymentText = item.PaymentMethod switch
+                    {
+                        "Cash" => "מזומן",
+                        "CreditCard" => "כרטיס אשראי",
+                        "BankTransfer" => "העברה בנקאית",
+                        _ => item.PaymentMethod
+                    };
+                    <tr>
+                        <td>@item.SaleId</td>
+                        <td>@item.OrderDisplay</td>
+                        <td>@item.EmployeeName</td>
+                        <td>@item.SaleDate?.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>@item.AmountPaid.ToString("N2") ₪</td>
+                        <td>@paymentText</td>
+                        <td>
+                            <a href="/Sales/Edit/@item.SaleId" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i></a>
+                            <form method="post" action="/Sales/Delete/@item.SaleId" style="display:inline"
+                                  onsubmit="return confirm('האם אתה בטוח שברצונך למחוק?')">
+                                @Html.AntiForgeryToken()
+                                <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
