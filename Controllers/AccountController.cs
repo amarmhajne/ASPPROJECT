@@ -17,6 +17,12 @@ public class AccountController : Controller
     }
 
     [HttpGet]
+    public IActionResult Index()
+    {
+        return RedirectToAction("Login");
+    }
+
+    [HttpGet]
     public IActionResult Login()
     {
         if (HttpContext.Session.GetInt32("UserId") != null)
