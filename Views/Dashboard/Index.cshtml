@@ -1,0 +1,88 @@
+@{
+    ViewData["Title"] = "דשבורד";
+    var role = ViewBag.UserRole as string;
+    var fullName = ViewBag.FullName as string;
+}
+
+<div class="mb-4">
+    <h2><i class="bi bi-speedometer2"></i> דשבורד</h2>
+    <p class="text-muted">שלום @fullName, ברוך הבא למערכת ניהול המכירות</p>
+</div>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show">
+        <i class="bi bi-exclamation-triangle"></i> @ViewBag.Error
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="row g-4">
+    @if (role == "Admin")
+    {
+        <div class="col-md-4 col-lg-3">
+            <a href="/Employees" class="text-decoration-none">
+                <div class="card text-center p-4 h-100">
+                    <i class="bi bi-people" style="font-size: 2.5rem; color: #1e3c72;"></i>
+                    <h5 class="mt-3">עובדים</h5>
+                    <p class="text-muted mb-0">ניהול עובדים</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 col-lg-3">
+            <a href="/Suppliers" class="text-decoration-none">
+                <div class="card text-center p-4 h-100">
+                    <i class="bi bi-truck" style="font-size: 2.5rem; color: #1e3c72;"></i>
+                    <h5 class="mt-3">ספקים</h5>
+                    <p class="text-muted mb-0">ניהול ספקים</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 col-lg-3">
+            <a href="/Products" class="text-decoration-none">
+                <div class="card text-center p-4 h-100">
+                    <i class="bi bi-box-seam" style="font-size: 2.5rem; color: #1e3c72;"></i>
+                    <h5 class="mt-3">מוצרים</h5>
+                    <p class="text-muted mb-0">ניהול מוצרים</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 col-lg-3">
+            <a href="/Inventory" class="text-decoration-none">
+                <div class="card text-center p-4 h-100">
+                    <i class="bi bi-clipboard-data" style="font-size: 2.5rem; color: #1e3c72;"></i>
+                    <h5 class="mt-3">מלאי</h5>
+                    <p class="text-muted mb-0">ניהול מלאי</p>
+                </div>
+            </a>
+        </div>
+    }
+
+    <div class="col-md-4 col-lg-3">
+        <a href="/Customers" class="text-decoration-none">
+            <div class="card text-center p-4 h-100">
+                <i class="bi bi-person-lines-fill" style="font-size: 2.5rem; color: #1e3c72;"></i>
+                <h5 class="mt-3">לקוחות</h5>
+                <p class="text-muted mb-0">ניהול לקוחות</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-4 col-lg-3">
+        <a href="/Orders" class="text-decoration-none">
+            <div class="card text-center p-4 h-100">
+                <i class="bi bi-cart3" style="font-size: 2.5rem; color: #1e3c72;"></i>
+                <h5 class="mt-3">הזמנות</h5>
+                <p class="text-muted mb-0">ניהול הזמנות</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-4 col-lg-3">
+        <a href="/Sales" class="text-decoration-none">
+            <div class="card text-center p-4 h-100">
+                <i class="bi bi-cash-coin" style="font-size: 2.5rem; color: #1e3c72;"></i>
+                <h5 class="mt-3">מכירות</h5>
+                <p class="text-muted mb-0">ניהול מכירות</p>
+            </div>
+        </a>
+    </div>
+</div>

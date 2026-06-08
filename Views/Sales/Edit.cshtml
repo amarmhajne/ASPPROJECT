@@ -1,0 +1,45 @@
+@model Sale
+@{
+    ViewData["Title"] = "עריכת מכירה";
+}
+
+<h3 class="mb-4"><i class="bi bi-pencil-square"></i> עריכת מכירה #@Model.SaleId</h3>
+
+<div class="card">
+    <div class="card-body">
+        <form method="post" asp-action="Edit" asp-route-id="@Model.SaleId">
+            @Html.AntiForgeryToken()
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="OrderId" class="form-label">הזמנה</label>
+                    <select asp-for="OrderId" asp-items="@(ViewBag.Orders as SelectList)" class="form-select">
+                        <option value="">-- בחר הזמנה --</option>
+                    </select>
+                    <span asp-validation-for="OrderId" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">עובד</label>
+                    <select asp-for="EmployeeId" asp-items="@(ViewBag.Employees as SelectList)" class="form-select">
+                        <option value="">-- בחר עובד --</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="AmountPaid" class="form-label"></label>
+                    <input asp-for="AmountPaid" class="form-control" type="number" step="0.01" />
+                    <span asp-validation-for="AmountPaid" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="PaymentMethod" class="form-label"></label>
+                    <select asp-for="PaymentMethod" asp-items="@(ViewBag.PaymentMethods as SelectList)" class="form-select">
+                        <option value="">-- בחר אמצעי תשלום --</option>
+                    </select>
+                    <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mt-3">
+                <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"></i> שמור</button>
+                <a href="/Sales" class="btn btn-secondary"><i class="bi bi-x-lg"></i> ביטול</a>
+            </div>
+        </form>
+    </div>
+</div>

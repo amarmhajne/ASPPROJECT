@@ -1,0 +1,71 @@
+@model IEnumerable<Supplier>
+@{
+    ViewData["Title"] = "ספקים";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3><i class="bi bi-truck"></i> ניהול ספקים</h3>
+    <a href="/Suppliers/Create" class="btn btn-primary"><i class="bi bi-plus-lg"></i> הוסף ספק חדש</a>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-2">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="חפש ספק..." value="@ViewBag.Search" />
+                    <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i></button>
+                </div>
+            </div>
+            @if (ViewBag.Search != null)
+            {
+                <div class="col-auto"><a href="/Suppliers" class="btn btn-outline-secondary">נקה חיפוש</a></div>
+            }
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>שם חברה</th>
+                    <th>איש קשר</th>
+                    <th>טלפון</th>
+                    <th>אימייל</th>
+                    <th>כתובת</th>
+                    <th>פעיל</th>
+                    <th>פעולות</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.SupplierId</td>
+                        <td>@item.CompanyName</td>
+                        <td>@item.ContactName</td>
+                        <td>@item.Phone</td>
+                        <td>@item.Email</td>
+                        <td>@item.Address</td>
+                        <td>
+                            <span class="badge @(item.IsActive ? "bg-success" : "bg-secondary")">
+                                @(item.IsActive ? "פעיל" : "לא פעיל")
+                            </span>
+                        </td>
+                        <td>
+                            <a href="/Suppliers/Edit/@item.SupplierId" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i></a>
+                            <form method="post" action="/Suppliers/Delete/@item.SupplierId" style="display:inline"
+                                  onsubmit="return confirm('האם אתה בטוח שברצונך למחוק?')">
+                                @Html.AntiForgeryToken()
+                                <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
